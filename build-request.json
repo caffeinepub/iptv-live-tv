@@ -1,41 +1,39 @@
 {
   "kind": "build_request",
-  "title": "Add dedicated Favourites section to channel browser",
-  "projectName": "StreamVault",
-  "priority": "normal",
+  "title": "Fix UI rendering in dark mode",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-17",
-      "text": "Add a dedicated 'Favourites' section/page view in the channel browser that displays only the channels the user has marked as favourites. For M3U/guest users, show channels whose IDs are stored in useLocalFavourites. For authenticated users, show channels from the backend getFavourites list. The section must be accessible via the existing 'Favourites' filter tab in the Navigation bar and must compose with all active filters (search, language, country) so that favourite channels can be further narrowed down.",
+      "id": "REQ-18",
+      "text": "Ensure the entire app renders in dark mode by default. The HTML root element must have the 'dark' class applied at all times (or the app must be configured to always use the dark color scheme). All components — including the navigation bar, channel grid, channel cards, filter controls, video player, and modals — must use the dark cinematic CSS variable tokens (deep dark backgrounds #0d0d0d to #1a1a2e, red/amber accents) already defined in frontend/src/index.css. Remove or override any light-mode fallback styles that are causing components to render with light backgrounds or light text.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-4"
         ],
         "quotes": [
-          "Yes i want that"
+          "Ui still in light mode i like dark mode  please change to dark mode"
         ]
       },
       "acceptanceCriteria": [
-        "Clicking the 'Favourites' tab in the Navigation bar switches the channel grid to show only favourited channels.",
-        "For unauthenticated (M3U) users, only channels whose IDs are in localStorage (useLocalFavourites) are displayed.",
-        "For authenticated users, only channels returned by the backend getFavourites call are displayed.",
-        "The search, language, and country filters remain active and further narrow the visible favourited channels.",
-        "When no channels are favourited, a friendly empty-state message is shown (e.g., 'No favourites yet — star a channel to save it here').",
-        "Toggling a favourite star on a card while in Favourites view immediately removes it from the visible list.",
-        "The Favourites tab is visually highlighted/active when selected, consistent with the existing dark cinematic theme."
+        "The app loads in dark mode without any manual toggle required.",
+        "The HTML <html> or <body> element has the 'dark' class applied on initial load.",
+        "All page backgrounds render as deep dark (#0d0d0d to #1a1a2e range), not white or light grey.",
+        "All text elements render in light/white tones against the dark background.",
+        "Channel cards, navigation bar, filter controls, modals, and the video player all display dark backgrounds consistent with the cinematic theme.",
+        "No component falls back to light-mode colors under any condition."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui.",
-    "Reuse the existing useLocalFavourites hook for M3U/guest favourite state — do not introduce a second localStorage favourites mechanism.",
-    "Reuse the existing backend getFavourites, addFavourite, and removeFavourite functions — do not alter the backend schema."
+    "Do not modify files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui.",
+    "Do not introduce a light/dark toggle — dark mode must be the only mode.",
+    "Preserve all existing dark cinematic CSS variable definitions in frontend/src/index.css; only fix the mode activation mechanism."
   ],
   "nonGoals": [
-    "Adding a separate dedicated page/route for Favourites — it should remain a filtered view within the existing Channel Browser page.",
-    "Changing the backend data model for favourites.",
-    "Implementing any new persistence mechanism beyond what already exists."
+    "Adding a user-facing theme toggle or light mode option.",
+    "Changing the existing color palette or design tokens.",
+    "Any backend changes."
   ],
   "imageRequirements": {
     "required": [],

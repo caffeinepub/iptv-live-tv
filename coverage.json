@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-27T18:50:53.913Z",
+  "generatedAt": "2026-02-27T18:56:27.662Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -11,16 +11,17 @@
     "implemented": 1,
     "items": [
       {
-        "id": "REQ-17",
-        "summary": "Add a dedicated 'Favourites' section/page view in the channel browser that displays only the channels the user has marked as favourites. For M3U/guest users, show channels whose IDs are stored in useLocalFavourites. For authenticated users, show channels from the backend getFavourites list. The section must be accessible via the existing 'Favourites' filter tab in the Navigation bar and must compose with all active filters (search, language, country) so that favourite channels can be further narrowed down.",
+        "id": "REQ-18",
+        "summary": "Ensure the entire app renders in dark mode by default. The HTML root element must have the 'dark' class applied at all times (or the app must be configured to always use the dark color scheme). All components — including the navigation bar, channel grid, channel cards, filter controls, video player, and modals — must use the dark cinematic CSS variable tokens (deep dark backgrounds #0d0d0d to #1a1a2e, red/amber accents) already defined in frontend/src/index.css. Remove or override any light-mode fallback styles that are causing components to render with light backgrounds or light text.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/ChannelBrowser.tsx",
-          "frontend/src/components/Navigation.tsx"
+          "frontend/index.html",
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js"
         ],
         "matchedFiles": [
-          "frontend/src/pages/ChannelBrowser.tsx",
-          "frontend/src/components/Navigation.tsx"
+          "frontend/index.html",
+          "frontend/src/index.css"
         ]
       }
     ]
@@ -30,8 +31,8 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/Navigation.tsx",
-    "frontend/src/pages/ChannelBrowser.tsx",
+    "frontend/index.html",
+    "frontend/src/index.css",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

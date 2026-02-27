@@ -1,30 +1,34 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add dedicated Favourites section to channel browser",
+  "title": "Fix UI rendering in dark mode",
   "requirements": [
     {
-      "id": "REQ-17",
-      "summary": "Add a dedicated 'Favourites' filter view to the channel browser that displays only favourited channels, composing with search/language/country filters and supporting both authenticated and M3U/guest users",
+      "id": "REQ-18",
+      "summary": "Ensure the entire app renders in dark mode by default by applying the 'dark' class to the HTML root element and removing any light-mode fallback styles",
       "acceptanceCriteria": [
-        "Clicking the 'Favourites' tab in the Navigation bar switches the channel grid to show only favourited channels.",
-        "For unauthenticated (M3U) users, only channels whose IDs are in localStorage (useLocalFavourites) are displayed.",
-        "For authenticated users, only channels returned by the backend getFavourites call are displayed.",
-        "The search, language, and country filters remain active and further narrow the visible favourited channels.",
-        "When no channels are favourited, a friendly empty-state message is shown (e.g., 'No favourites yet — star a channel to save it here').",
-        "Toggling a favourite star on a card while in Favourites view immediately removes it from the visible list.",
-        "The Favourites tab is visually highlighted/active when selected, consistent with the existing dark cinematic theme."
+        "The app loads in dark mode without any manual toggle required.",
+        "The HTML <html> or <body> element has the 'dark' class applied on initial load.",
+        "All page backgrounds render as deep dark (#0d0d0d to #1a1a2e range), not white or light grey.",
+        "All text elements render in light/white tones against the dark background.",
+        "Channel cards, navigation bar, filter controls, modals, and the video player all display dark backgrounds consistent with the cinematic theme.",
+        "No component falls back to light-mode colors under any condition."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/ChannelBrowser.tsx",
+          "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Add filtering logic to apply the 'favourites' filter when activeFilter is 'favourites'. For M3U users, filter combinedChannels by checking if each channel's ID exists in the localFavourites set from useLocalFavourites. For authenticated users, filter against backendFavouriteIds from getFavourites query. Ensure this filtering composes with existing search, language, and country filters. Update the empty state message to show a favourites-specific message ('No favourites yet — star a channel to save it here') when activeFilter is 'favourites' and the filtered list is empty. Verify the component's usage of useLocalFavourites and the getFavourites query before implementing."
+          "description": "Add the 'dark' class to the <html> element to permanently activate dark mode for the entire application. This ensures Tailwind's dark: variant classes render correctly and all components use the dark cinematic color tokens defined in index.css."
         },
         {
-          "path": "frontend/src/components/Navigation.tsx",
+          "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Update the 'Favourites' tab button to highlight/activate when activeFilter is 'favourites', matching the styling behavior of the existing 'All' and playlist tabs. Ensure the onClick handler sets activeFilter to 'favourites' correctly. Maintain the existing dark cinematic theme styling for the active state (e.g., bg-zinc-700 or similar classes used for the 'All' tab when active)."
+          "description": "Remove the @media (prefers-color-scheme: light) block and any light-mode CSS variable definitions. Ensure only the dark mode variables (under :root or .dark) remain active. Add explicit dark background and text color defaults to the @layer base section to prevent any light-mode fallbacks."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Set darkMode configuration to 'class' (if not already set) to ensure Tailwind respects the 'dark' class on the HTML element. Verify that all color definitions reference the oklch CSS variables that map to the dark cinematic palette."
         }
       ]
     }

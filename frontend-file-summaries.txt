@@ -1,6 +1,6 @@
 {
-  "frontend/index.html": "HTML entry point with updated title, Google Fonts (Inter + Barlow Condensed), and hls.js CDN script for HLS stream playback.",
-  "frontend/src/index.css": "Dark cinematic OKLCH design system with deep navy backgrounds, vivid red primary, amber secondary accent, scrollbar-hide utility, card glow, nav blur, and pulse-red animation.",
+  "frontend/index.html": "HTML entry point with `class=\"dark\"` permanently applied to the `<html>` element, ensuring Tailwind's dark mode class variant activates on load without any toggle.",
+  "frontend/src/index.css": "Dark cinematic OKLCH design system with all color tokens consolidated into a single `:root, .dark` block using the deepest dark values, removing any light-mode fallback variables.",
   "frontend/tailwind.config.js": "Extended Tailwind config with Inter/Barlow Condensed fonts, dark cinematic color palette, glow box shadows, and pulse-red animation keyframes.",
   "frontend/src/hooks/useQueries.ts": "React Query hooks for channels, favourites, user profile, and playlists — includes useGetMyPlaylists, useCreatePlaylist, useDeletePlaylist, useAddChannelToPlaylist, and useRemoveChannelFromPlaylist mutations with proper query invalidation.",
   "frontend/src/App.tsx": "Root app component that renders the ChannelBrowser page.",

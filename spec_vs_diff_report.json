@@ -1,33 +1,15 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-27T18:50:53.909Z",
-  "summary": "The diff implements REQ-17 across Navigation.tsx and ChannelBrowser.tsx. The Favourites tab with star icon, active highlighting, filter composition (search/language/country), useLocalFavourites for guest users, and smart deselection on unfavourite are all present. However, the authenticated user path uses localStorage instead of the backend getFavourites call.",
-  "missing_requirements": [
-    {
-      "id": "REQ-17",
-      "requirement": "For authenticated users, only channels returned by the backend getFavourites call are displayed.",
-      "reason": "The ChannelBrowser.tsx diff shows useLocalFavourites being used for all users including authenticated ones. The comment explicitly states 'Local favourites (localStorage) — used for all users (M3U/guest and authenticated)', contradicting the requirement that authenticated users see backend-sourced favourites from getFavourites.",
-      "evidence": [
-        "frontend/src/pages/ChannelBrowser.tsx"
-      ]
-    }
-  ],
-  "hallucinated_features": [
-    {
-      "description": "A favourites count banner displayed when in Favourites view",
-      "reason": "The file summary for ChannelBrowser.tsx mentions 'shows a favourites count banner when in Favourites view', which was not requested in REQ-17 or any of its acceptance criteria.",
-      "evidence": [
-        "frontend-file-summaries.txt",
-        "frontend/src/pages/ChannelBrowser.tsx"
-      ]
-    }
-  ],
-  "confidence": 0.72,
+  "generatedAt": "2026-02-27T18:56:27.658Z",
+  "summary": "The diff implements REQ-18 by applying the 'dark' class to the HTML root element in frontend/index.html and consolidating all CSS variable definitions into a single ':root, .dark' block in frontend/src/index.css, ensuring dark mode is always active without any toggle. The implementation addresses all acceptance criteria for REQ-18.",
+  "missing_requirements": [],
+  "hallucinated_features": [],
+  "confidence": 0.92,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/components/Navigation.tsx",
-    "frontend/src/pages/ChannelBrowser.tsx",
+    "frontend/index.html",
+    "frontend/src/index.css",
     "project_state.json"
   ]
 }

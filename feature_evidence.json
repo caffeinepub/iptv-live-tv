@@ -2,11 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-dedicated-favourites-section-page-view-in-the-channel-browser-that-displays-only-the-channels-the-user-has-marked-as-favourites-for-m3u-guest-users-show-channels-whose-ids-are-stored-in-uselocalfavourites-for-authenticated-users-show-channels-from-the-backend-getfavourites-list-the-section-must-be-accessible-via-the-existing-favourites-filter-tab-in-the-navigation-bar-and-must-compose-with-all-active-filters-search-language-country-so-that-favourite-channels-can-be-further-narrowed-down",
-      "featureTitle": "Add a dedicated 'Favourites' section/page view in the channel browser that displays only the channels the user has marked as favourites. For M3U/guest users, show channels whose IDs are stored in useLocalFavourites. For authenticated users, show channels from the backend getFavourites list. The section must be accessible via the existing 'Favourites' filter tab in the Navigation bar and must compose with all active filters (search, language, country) so that favourite channels can be further narrowed down.",
+      "featureId": "feature-ensure-the-entire-app-renders-in-dark-mode-by-default-the-html-root-element-must-have-the-dark-class-applied-at-all-times-or-the-app-must-be-configured-to-always-use-the-dark-color-scheme-all-components-including-the-navigation-bar-channel-grid-channel-cards-filter-controls-video-player-and-modals-must-use-the-dark-cinematic-css-variable-tokens-deep-dark-backgrounds-0d0d0d-to-1a1a2e-red-amber-accents-already-defined-in-frontend-src-index-css-remove-or-override-any-light-mode-fallback-styles-that-are-causing-components-to-render-with-light-backgrounds-or-light-text",
+      "featureTitle": "Ensure the entire app renders in dark mode by default. The HTML root element must have the 'dark' class applied at all times (or the app must be configured to always use the dark color scheme). All components — including the navigation bar, channel grid, channel cards, filter controls, video player, and modals — must use the dark cinematic CSS variable tokens (deep dark backgrounds #0d0d0d to #1a1a2e, red/amber accents) already defined in frontend/src/index.css. Remove or override any light-mode fallback styles that are causing components to render with light backgrounds or light text.",
       "files": [
-        "frontend/src/components/Navigation.tsx",
-        "frontend/src/pages/ChannelBrowser.tsx"
+        "frontend/index.html",
+        "frontend/src/index.css"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,7 +17,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-17"
+        "REQ-18"
       ],
       "confidence": "high"
     }
