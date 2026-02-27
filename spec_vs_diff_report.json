@@ -1,93 +1,33 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-27T18:01:51.828Z",
-  "summary": "The diff implements most requirements well: backend CRUD for channels, favourites via toggleFavourite, frontend channel grid, HLS video player, filter controls, favourites tab, and dark cinematic theme. However, several specific acceptance criteria have gaps: the backend uses toggleFavourite instead of separate addFavourite/removeFavourite functions; getFavourites returns Channel[] via frontend hook rather than channel IDs; there is no evidence of at least 10 pre-populated sample channels in the truncated backend; the logoUrl field is named thumbnailUrl in the backend; and a profile setup modal and Internet Identity auth (non-goals) are added as hallucinated features.",
+  "generatedAt": "2026-02-27T18:50:53.909Z",
+  "summary": "The diff implements REQ-17 across Navigation.tsx and ChannelBrowser.tsx. The Favourites tab with star icon, active highlighting, filter composition (search/language/country), useLocalFavourites for guest users, and smart deselection on unfavourite are all present. However, the authenticated user path uses localStorage instead of the backend getFavourites call.",
   "missing_requirements": [
     {
-      "id": "REQ-1",
-      "requirement": "Backend channel record must use field name logoUrl",
-      "reason": "The Channel type in backend/main.mo uses thumbnailUrl instead of the specified logoUrl field name.",
+      "id": "REQ-17",
+      "requirement": "For authenticated users, only channels returned by the backend getFavourites call are displayed.",
+      "reason": "The ChannelBrowser.tsx diff shows useLocalFavourites being used for all users including authenticated ones. The comment explicitly states 'Local favourites (localStorage) — used for all users (M3U/guest and authenticated)', contradicting the requirement that authenticated users see backend-sourced favourites from getFavourites.",
       "evidence": [
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-1",
-      "requirement": "At least 10 sample channels pre-populated across multiple languages and countries",
-      "reason": "The backend file is truncated and no pre-population of sample channels is visible in the diff. No seed or init data is shown anywhere.",
-      "evidence": [
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "requirement": "Expose addFavourite and removeFavourite as separate backend functions keyed by caller principal",
-      "reason": "The backend exposes toggleFavourite instead of separate addFavourite and removeFavourite functions as required by the AC.",
-      "evidence": [
-        "backend/main.mo",
-        "frontend/src/hooks/useQueries.ts"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "requirement": "getFavourites returns the list of favourite channel IDs for the caller",
-      "reason": "The frontend hook useGetFavourites returns Channel[] (full channel objects), and the backend getFavourites appears to return full channels rather than channel IDs as specified in the AC.",
-      "evidence": [
-        "frontend/src/hooks/useQueries.ts"
+        "frontend/src/pages/ChannelBrowser.tsx"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Profile setup modal requiring users to set a display name on first login",
-      "reason": "A ProfileSetupModal component is implemented that prompts authenticated users to enter a display name. This was not requested in the build spec and no profile setup flow was specified.",
+      "description": "A favourites count banner displayed when in Favourites view",
+      "reason": "The file summary for ChannelBrowser.tsx mentions 'shows a favourites count banner when in Favourites view', which was not requested in REQ-17 or any of its acceptance criteria.",
       "evidence": [
-        "frontend/src/components/ProfileSetupModal.tsx",
-        "frontend/src/pages/ChannelBrowser.tsx",
-        "frontend/src/hooks/useQueries.ts"
-      ]
-    },
-    {
-      "description": "User profile system with getCallerUserProfile, getUserProfile, and saveCallerUserProfile backend functions",
-      "reason": "The backend implements a full user profile storage system with UserProfile type and associated CRUD. This was not requested in the build spec.",
-      "evidence": [
-        "backend/main.mo",
-        "frontend/src/hooks/useQueries.ts"
-      ]
-    },
-    {
-      "description": "Internet Identity authentication with sign-in and sign-out controls in the navigation bar",
-      "reason": "The Navigation component includes login/logout UI and the app integrates Internet Identity. The build spec explicitly lists User authentication via Internet Identity as a non-goal.",
-      "evidence": [
-        "frontend/src/components/Navigation.tsx",
-        "frontend/src/hooks/useInternetIdentity.ts",
-        "frontend/src/hooks/useActor.ts"
+        "frontend-file-summaries.txt",
+        "frontend/src/pages/ChannelBrowser.tsx"
       ]
     }
   ],
   "confidence": 0.72,
   "changed_files": [
-    "all_files_summary.json",
-    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
-    "frontend/index.html",
-    "frontend/src/App.tsx",
-    "frontend/src/components/ChannelCard.tsx",
-    "frontend/src/components/ChannelGrid.tsx",
-    "frontend/src/components/FilterControls.tsx",
     "frontend/src/components/Navigation.tsx",
-    "frontend/src/components/ProfileSetupModal.tsx",
-    "frontend/src/components/VideoPlayer.tsx",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/index.css",
-    "frontend/src/main.tsx",
     "frontend/src/pages/ChannelBrowser.tsx",
-    "frontend/src/utils/urlParams.ts",
-    "frontend/tailwind.config.js",
     "project_state.json"
   ]
 }

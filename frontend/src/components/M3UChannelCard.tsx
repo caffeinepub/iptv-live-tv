@@ -1,26 +1,25 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
-import type { Channel } from '../backend';
-import { useToggleFavourite } from '../hooks/useQueries';
-import { useInternetIdentity } from '../hooks/useInternetIdentity';
-import AddToPlaylistPopover from './AddToPlaylistPopover';
+import type { M3UChannel } from '../utils/m3uParser';
 
-interface ChannelCardProps {
-    channel: Channel;
+interface M3UChannelCardProps {
+    channel: M3UChannel;
     isFavourite: boolean;
     isSelected: boolean;
-    onSelect: (channel: Channel) => void;
+    onSelect: (channel: M3UChannel) => void;
+    onToggleFavourite: (id: string) => void;
 }
 
-export default function ChannelCard({ channel, isFavourite, isSelected, onSelect }: ChannelCardProps) {
-    const { identity } = useInternetIdentity();
-    const toggleFavourite = useToggleFavourite();
-    const isAuthenticated = !!identity;
-
+export default function M3UChannelCard({
+    channel,
+    isFavourite,
+    isSelected,
+    onSelect,
+    onToggleFavourite,
+}: M3UChannelCardProps) {
     const handleFavouriteClick = (e: React.MouseEvent) => {
         e.stopPropagation();
-        if (!isAuthenticated) return;
-        toggleFavourite.mutate(channel.id);
+        onToggleFavourite(channel.id);
     };
 
     return (
@@ -61,43 +60,25 @@ export default function ChannelCard({ channel, isFavourite, isSelected, onSelect
                     </div>
                 )}
 
-                {/* Action buttons — top right */}
-                <div className="absolute top-2 right-2 flex items-center gap-1">
-                    {/* Add to Playlist button — authenticated only */}
-                    {isAuthenticated && (
-                        <AddToPlaylistPopover channelId={channel.id} />
-                    )}
-
-                    {/* Favourite button */}
-                    <button
-                        onClick={handleFavouriteClick}
-                        disabled={!isAuthenticated || toggleFavourite.isPending}
-                        className={`
-                            w-8 h-8 rounded-full backdrop-blur-sm flex items-center justify-center
-                            transition-all duration-200
-                            ${!isAuthenticated
-                                ? 'bg-black/30 opacity-40 cursor-not-allowed'
-                                : isFavourite
-                                    ? 'bg-primary/90 hover:bg-primary shadow-glow-red'
-                                    : 'bg-black/50 hover:bg-black/70 opacity-0 group-hover:opacity-100'
-                            }
-                            ${toggleFavourite.isPending ? 'opacity-50' : ''}
-                        `}
-                        title={
-                            !isAuthenticated
-                                ? 'Sign in to save favourites'
-                                : isFavourite
-                                    ? 'Remove from favourites'
-                                    : 'Add to favourites'
+                {/* Favourite button */}
+                <button
+                    onClick={handleFavouriteClick}
+                    className={`
+                        absolute top-2 right-2 w-8 h-8 rounded-full backdrop-blur-sm flex items-center justify-center
+                        transition-all duration-200
+                        ${isFavourite
+                            ? 'bg-primary/90 hover:bg-primary shadow-glow-red'
+                            : 'bg-black/50 hover:bg-black/70 opacity-0 group-hover:opacity-100'
                         }
-                    >
-                        <Heart
-                            className={`w-4 h-4 transition-colors ${
-                                isFavourite ? 'fill-primary-foreground text-primary-foreground' : 'text-white'
-                            }`}
-                        />
-                    </button>
-                </div>
+                    `}
+                    title={isFavourite ? 'Remove from favourites' : 'Add to favourites'}
+                >
+                    <Heart
+                        className={`w-4 h-4 transition-colors ${
+                            isFavourite ? 'fill-primary-foreground text-primary-foreground' : 'text-white'
+                        }`}
+                    />
+                </button>
             </div>
 
             {/* Info */}

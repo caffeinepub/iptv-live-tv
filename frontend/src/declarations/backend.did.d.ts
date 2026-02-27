@@ -19,6 +19,13 @@ export interface Channel {
   'streamUrl' : string,
 }
 export type ChannelId = bigint;
+export interface Playlist {
+  'id' : PlaylistId,
+  'owner' : Principal,
+  'name' : string,
+  'channels' : Array<ChannelId>,
+}
+export type PlaylistId = bigint;
 export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
@@ -29,14 +36,20 @@ export interface _SERVICE {
     [string, string, string, string, string],
     ChannelId
   >,
+  'addChannelToPlaylist' : ActorMethod<[PlaylistId, ChannelId], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'createPlaylist' : ActorMethod<[string], PlaylistId>,
   'deleteChannel' : ActorMethod<[ChannelId], undefined>,
+  'deletePlaylist' : ActorMethod<[PlaylistId], undefined>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getChannels' : ActorMethod<[], Array<Channel>>,
   'getFavourites' : ActorMethod<[], Array<Channel>>,
+  'getMyPlaylists' : ActorMethod<[], Array<Playlist>>,
+  'getPlaylist' : ActorMethod<[PlaylistId], Playlist>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
+  'removeChannelFromPlaylist' : ActorMethod<[PlaylistId, ChannelId], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'toggleFavourite' : ActorMethod<[ChannelId], boolean>,
   'updateChannel' : ActorMethod<

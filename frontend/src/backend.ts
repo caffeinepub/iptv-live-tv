@@ -89,6 +89,12 @@ export class ExternalBlob {
         return this;
     }
 }
+export interface Playlist {
+    id: PlaylistId;
+    owner: Principal;
+    name: string;
+    channels: Array<ChannelId>;
+}
 export interface Channel {
     id: ChannelId;
     country: string;
@@ -101,6 +107,7 @@ export type ChannelId = bigint;
 export interface UserProfile {
     name: string;
 }
+export type PlaylistId = bigint;
 export enum UserRole {
     admin = "admin",
     user = "user",
@@ -109,14 +116,20 @@ export enum UserRole {
 export interface backendInterface {
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
     addChannel(name: string, streamUrl: string, language: string, country: string, thumbnailUrl: string): Promise<ChannelId>;
+    addChannelToPlaylist(playlistId: PlaylistId, channelId: ChannelId): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    createPlaylist(name: string): Promise<PlaylistId>;
     deleteChannel(id: ChannelId): Promise<void>;
+    deletePlaylist(playlistId: PlaylistId): Promise<void>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getChannels(): Promise<Array<Channel>>;
     getFavourites(): Promise<Array<Channel>>;
+    getMyPlaylists(): Promise<Array<Playlist>>;
+    getPlaylist(playlistId: PlaylistId): Promise<Playlist>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
+    removeChannelFromPlaylist(playlistId: PlaylistId, channelId: ChannelId): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     toggleFavourite(channelId: ChannelId): Promise<boolean>;
     updateChannel(id: ChannelId, name: string, streamUrl: string, language: string, country: string, thumbnailUrl: string): Promise<void>;
@@ -152,6 +165,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async addChannelToPlaylist(arg0: PlaylistId, arg1: ChannelId): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addChannelToPlaylist(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addChannelToPlaylist(arg0, arg1);
+            return result;
+        }
+    }
     async assignCallerUserRole(arg0: Principal, arg1: UserRole): Promise<void> {
         if (this.processError) {
             try {
@@ -166,6 +193,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async createPlaylist(arg0: string): Promise<PlaylistId> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createPlaylist(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createPlaylist(arg0);
+            return result;
+        }
+    }
     async deleteChannel(arg0: ChannelId): Promise<void> {
         if (this.processError) {
             try {
@@ -177,6 +218,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.deleteChannel(arg0);
+            return result;
+        }
+    }
+    async deletePlaylist(arg0: PlaylistId): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deletePlaylist(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deletePlaylist(arg0);
             return result;
         }
     }
@@ -236,6 +291,34 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getMyPlaylists(): Promise<Array<Playlist>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMyPlaylists();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMyPlaylists();
+            return result;
+        }
+    }
+    async getPlaylist(arg0: PlaylistId): Promise<Playlist> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getPlaylist(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getPlaylist(arg0);
+            return result;
+        }
+    }
     async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
         if (this.processError) {
             try {
@@ -261,6 +344,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.isCallerAdmin();
+            return result;
+        }
+    }
+    async removeChannelFromPlaylist(arg0: PlaylistId, arg1: ChannelId): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.removeChannelFromPlaylist(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.removeChannelFromPlaylist(arg0, arg1);
             return result;
         }
     }

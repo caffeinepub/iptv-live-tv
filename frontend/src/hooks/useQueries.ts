@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import type { Channel } from '../backend';
+import type { Channel, Playlist, PlaylistId, ChannelId } from '../backend';
 
 // ─── Channels ────────────────────────────────────────────────────────────────
 
@@ -87,6 +87,86 @@ export function useSaveCallerUserProfile() {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] });
+        },
+    });
+}
+
+// ─── Playlists ────────────────────────────────────────────────────────────────
+
+export function useGetMyPlaylists() {
+    const { actor, isFetching: actorFetching } = useActor();
+
+    return useQuery<Playlist[]>({
+        queryKey: ['myPlaylists'],
+        queryFn: async () => {
+            if (!actor) return [];
+            try {
+                return await actor.getMyPlaylists();
+            } catch {
+                return [];
+            }
+        },
+        enabled: !!actor && !actorFetching,
+        staleTime: 1000 * 60 * 2,
+    });
+}
+
+export function useCreatePlaylist() {
+    const { actor } = useActor();
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async (name: string) => {
+            if (!actor) throw new Error('Actor not available');
+            return actor.createPlaylist(name);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['myPlaylists'] });
+        },
+    });
+}
+
+export function useDeletePlaylist() {
+    const { actor } = useActor();
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async (playlistId: PlaylistId) => {
+            if (!actor) throw new Error('Actor not available');
+            return actor.deletePlaylist(playlistId);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['myPlaylists'] });
+        },
+    });
+}
+
+export function useAddChannelToPlaylist() {
+    const { actor } = useActor();
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async ({ playlistId, channelId }: { playlistId: PlaylistId; channelId: ChannelId }) => {
+            if (!actor) throw new Error('Actor not available');
+            return actor.addChannelToPlaylist(playlistId, channelId);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['myPlaylists'] });
+        },
+    });
+}
+
+export function useRemoveChannelFromPlaylist() {
+    const { actor } = useActor();
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async ({ playlistId, channelId }: { playlistId: PlaylistId; channelId: ChannelId }) => {
+            if (!actor) throw new Error('Actor not available');
+            return actor.removeChannelFromPlaylist(playlistId, channelId);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['myPlaylists'] });
         },
     });
 }

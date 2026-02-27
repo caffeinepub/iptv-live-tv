@@ -1,171 +1,44 @@
 {
   "kind": "build_request",
-  "title": "IPTV Live TV App with Language, Country, and Favourites Filtering",
-  "projectName": "StreamVault TV",
+  "title": "Add dedicated Favourites section to channel browser",
+  "projectName": "StreamVault",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Create a backend actor that stores IPTV channel data including name, stream URL, language, country, and a logo/thumbnail URL. Provide CRUD operations: add channel, get all channels, update channel, delete channel. Pre-populate with a set of sample IPTV channels across diverse languages and countries.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Watch live tv via iptv links"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend stores channel records with fields: id, name, streamUrl, language, country, logoUrl",
-        "Canister exposes addChannel, getChannels, updateChannel, deleteChannel query/update calls",
-        "At least 10 sample channels are pre-populated across multiple languages and countries"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Create a backend mechanism to persist per-user favourite channel IDs. Expose addFavourite, removeFavourite, and getFavourites functions keyed by caller principal.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "option to sort by favourite"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Favourites are stored per-user principal",
-        "addFavourite and removeFavourite update the user's favourites list",
-        "getFavourites returns the list of favourite channel IDs for the caller"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Build a main channel browser page that displays all IPTV channels in a grid layout. Each channel card shows the channel logo, name, language, and country. Clicking a card opens the stream player.",
+      "id": "REQ-17",
+      "text": "Add a dedicated 'Favourites' section/page view in the channel browser that displays only the channels the user has marked as favourites. For M3U/guest users, show channels whose IDs are stored in useLocalFavourites. For authenticated users, show channels from the backend getFavourites list. The section must be accessible via the existing 'Favourites' filter tab in the Navigation bar and must compose with all active filters (search, language, country) so that favourite channels can be further narrowed down.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2"
+          "msg-3"
         ],
         "quotes": [
-          "Watch live tv via iptv links"
+          "Yes i want that"
         ]
       },
       "acceptanceCriteria": [
-        "Channel grid renders all channels fetched from the backend",
-        "Each card shows logo, name, language, and country",
-        "Clicking a channel card triggers the video player to load that channel's stream URL"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Implement an inline HLS/M3U8-compatible video player (using hls.js) that plays the selected channel's IPTV stream URL directly in the browser. Display the channel name and country as an overlay while playing.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Watch live tv via iptv links"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Selected channel stream plays in an embedded video player",
-        "Player supports HLS streams via hls.js",
-        "Channel name and country are displayed as an overlay on the player",
-        "Player has standard controls (play/pause, volume, fullscreen)"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Add filter controls above the channel grid to filter channels by language and by country. Populate the filter dropdowns dynamically from the available channel data. Filters can be combined (e.g., language=Spanish AND country=Mexico).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "It can be sort by language, counyry"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Language dropdown lists all unique languages present in the channel list",
-        "Country dropdown lists all unique countries present in the channel list",
-        "Selecting a language filters the grid to show only matching channels",
-        "Selecting a country filters the grid to show only matching channels",
-        "Both filters can be active simultaneously"
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Add a Favourites toggle button on each channel card. Users can mark/unmark channels as favourites. Add a 'Favourites' filter tab at the top of the channel browser to show only favourited channels. Favourites are persisted via the backend.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "option to sort by favourite"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Each channel card has a heart/star icon that toggles the favourite state",
-        "Toggling favourite calls addFavourite or removeFavourite on the backend",
-        "A 'Favourites' filter tab/button is present in the navigation area",
-        "Activating Favourites filter shows only the user's favourited channels",
-        "Favourite state is loaded from the backend on page load"
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "text": "Apply a dark, cinematic visual theme across the entire app: deep dark backgrounds (#0d0d0d to #1a1a2e), vivid accent colours in red/amber for highlights and active states, bold sans-serif typography, glowing card hover effects, and a sleek top navigation bar with the app logo and filter tabs. Ensure the theme is consistent across the channel grid, player, and filter controls.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ]
-      },
-      "acceptanceCriteria": [
-        "App uses a dark background throughout with no white/light backgrounds",
-        "Active filters and favourite icons use a vivid accent colour (red or amber)",
-        "Channel cards have a subtle glow or lift effect on hover",
-        "Typography is bold and legible on dark backgrounds",
-        "Top navigation bar is present with app branding and primary filter tabs"
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "text": "Generate and use a custom app logo image for the top navigation bar and a default channel placeholder thumbnail for channels without a logo.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ]
-      },
-      "acceptanceCriteria": [
-        "App logo appears in the top navigation bar",
-        "Channels without a logo URL display the placeholder thumbnail image"
+        "Clicking the 'Favourites' tab in the Navigation bar switches the channel grid to show only favourited channels.",
+        "For unauthenticated (M3U) users, only channels whose IDs are in localStorage (useLocalFavourites) are displayed.",
+        "For authenticated users, only channels returned by the backend getFavourites call are displayed.",
+        "The search, language, and country filters remain active and further narrow the visible favourited channels.",
+        "When no channels are favourited, a friendly empty-state message is shown (e.g., 'No favourites yet — star a channel to save it here').",
+        "Toggling a favourite star on a card while in Favourites view immediately removes it from the visible list.",
+        "The Favourites tab is visually highlighted/active when selected, consistent with the existing dark cinematic theme."
       ]
     }
   ],
   "constraints": [
-    "Use hls.js for HLS stream playback; do not use external video hosting services",
-    "All channel and favourites data must be stored in the Motoko backend canister",
-    "Frontend immutable paths must not be modified"
+    "Do not modify any files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui.",
+    "Reuse the existing useLocalFavourites hook for M3U/guest favourite state — do not introduce a second localStorage favourites mechanism.",
+    "Reuse the existing backend getFavourites, addFavourite, and removeFavourite functions — do not alter the backend schema."
   ],
   "nonGoals": [
-    "User authentication via Internet Identity (favourites use anonymous principal initially)",
-    "EPG (Electronic Program Guide) or schedule data",
-    "Recording or DVR functionality",
-    "Chat or social features",
-    "Paid/subscription channel management"
+    "Adding a separate dedicated page/route for Favourites — it should remain a filtered view within the existing Channel Browser page.",
+    "Changing the backend data model for favourites.",
+    "Implementing any new persistence mechanism beyond what already exists."
   ],
   "imageRequirements": {
-    "required": [
-      "Minimalist TV antenna with a glowing signal wave icon in red and amber on a dark background, app logo style (streamvault-logo.dim_200x60.png)",
-      "Dark grey television screen with a subtle static noise texture and a red play button in the centre, used as a channel thumbnail placeholder (channel-placeholder.dim_320x180.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

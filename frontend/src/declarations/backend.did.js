@@ -9,6 +9,7 @@
 import { IDL } from '@icp-sdk/core/candid';
 
 export const ChannelId = IDL.Nat;
+export const PlaylistId = IDL.Nat;
 export const UserRole = IDL.Variant({
   'admin' : IDL.Null,
   'user' : IDL.Null,
@@ -23,6 +24,12 @@ export const Channel = IDL.Record({
   'language' : IDL.Text,
   'streamUrl' : IDL.Text,
 });
+export const Playlist = IDL.Record({
+  'id' : PlaylistId,
+  'owner' : IDL.Principal,
+  'name' : IDL.Text,
+  'channels' : IDL.Vec(ChannelId),
+});
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
@@ -31,18 +38,24 @@ export const idlService = IDL.Service({
       [ChannelId],
       [],
     ),
+  'addChannelToPlaylist' : IDL.Func([PlaylistId, ChannelId], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'createPlaylist' : IDL.Func([IDL.Text], [PlaylistId], []),
   'deleteChannel' : IDL.Func([ChannelId], [], []),
+  'deletePlaylist' : IDL.Func([PlaylistId], [], []),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getChannels' : IDL.Func([], [IDL.Vec(Channel)], ['query']),
   'getFavourites' : IDL.Func([], [IDL.Vec(Channel)], ['query']),
+  'getMyPlaylists' : IDL.Func([], [IDL.Vec(Playlist)], ['query']),
+  'getPlaylist' : IDL.Func([PlaylistId], [Playlist], ['query']),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
       ['query'],
     ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'removeChannelFromPlaylist' : IDL.Func([PlaylistId, ChannelId], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'toggleFavourite' : IDL.Func([ChannelId], [IDL.Bool], []),
   'updateChannel' : IDL.Func(
@@ -56,6 +69,7 @@ export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
   const ChannelId = IDL.Nat;
+  const PlaylistId = IDL.Nat;
   const UserRole = IDL.Variant({
     'admin' : IDL.Null,
     'user' : IDL.Null,
@@ -70,6 +84,12 @@ export const idlFactory = ({ IDL }) => {
     'language' : IDL.Text,
     'streamUrl' : IDL.Text,
   });
+  const Playlist = IDL.Record({
+    'id' : PlaylistId,
+    'owner' : IDL.Principal,
+    'name' : IDL.Text,
+    'channels' : IDL.Vec(ChannelId),
+  });
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
@@ -78,18 +98,24 @@ export const idlFactory = ({ IDL }) => {
         [ChannelId],
         [],
       ),
+    'addChannelToPlaylist' : IDL.Func([PlaylistId, ChannelId], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'createPlaylist' : IDL.Func([IDL.Text], [PlaylistId], []),
     'deleteChannel' : IDL.Func([ChannelId], [], []),
+    'deletePlaylist' : IDL.Func([PlaylistId], [], []),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getChannels' : IDL.Func([], [IDL.Vec(Channel)], ['query']),
     'getFavourites' : IDL.Func([], [IDL.Vec(Channel)], ['query']),
+    'getMyPlaylists' : IDL.Func([], [IDL.Vec(Playlist)], ['query']),
+    'getPlaylist' : IDL.Func([PlaylistId], [Playlist], ['query']),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
         ['query'],
       ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'removeChannelFromPlaylist' : IDL.Func([PlaylistId, ChannelId], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'toggleFavourite' : IDL.Func([ChannelId], [IDL.Bool], []),
     'updateChannel' : IDL.Func(

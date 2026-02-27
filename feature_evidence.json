@@ -2,94 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-build-a-main-channel-browser-page-that-displays-all-iptv-channels-in-a-grid-layout-each-channel-card-shows-the-channel-logo-name-language-and-country-clicking-a-card-opens-the-stream-player",
-      "featureTitle": "Build a main channel browser page that displays all IPTV channels in a grid layout. Each channel card shows the channel logo, name, language, and country. Clicking a card opens the stream player.",
+      "featureId": "feature-add-a-dedicated-favourites-section-page-view-in-the-channel-browser-that-displays-only-the-channels-the-user-has-marked-as-favourites-for-m3u-guest-users-show-channels-whose-ids-are-stored-in-uselocalfavourites-for-authenticated-users-show-channels-from-the-backend-getfavourites-list-the-section-must-be-accessible-via-the-existing-favourites-filter-tab-in-the-navigation-bar-and-must-compose-with-all-active-filters-search-language-country-so-that-favourite-channels-can-be-further-narrowed-down",
+      "featureTitle": "Add a dedicated 'Favourites' section/page view in the channel browser that displays only the channels the user has marked as favourites. For M3U/guest users, show channels whose IDs are stored in useLocalFavourites. For authenticated users, show channels from the backend getFavourites list. The section must be accessible via the existing 'Favourites' filter tab in the Navigation bar and must compose with all active filters (search, language, country) so that favourite channels can be further narrowed down.",
       "files": [
-        "frontend/src/components/ChannelCard.tsx",
-        "frontend/src/components/ChannelGrid.tsx",
-        "frontend/src/pages/ChannelBrowser.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-an-inline-hls-m3u8-compatible-video-player-using-hls-js-that-plays-the-selected-channel-s-iptv-stream-url-directly-in-the-browser-display-the-channel-name-and-country-as-an-overlay-while-playing",
-      "featureTitle": "Implement an inline HLS/M3U8-compatible video player (using hls.js) that plays the selected channel's IPTV stream URL directly in the browser. Display the channel name and country as an overlay while playing.",
-      "files": [
-        "frontend/src/components/VideoPlayer.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-filter-controls-above-the-channel-grid-to-filter-channels-by-language-and-by-country-populate-the-filter-dropdowns-dynamically-from-the-available-channel-data-filters-can-be-combined-e-g-language-spanish-and-country-mexico",
-      "featureTitle": "Add filter controls above the channel grid to filter channels by language and by country. Populate the filter dropdowns dynamically from the available channel data. Filters can be combined (e.g., language=Spanish AND country=Mexico).",
-      "files": [
-        "frontend/src/components/FilterControls.tsx",
-        "frontend/src/pages/ChannelBrowser.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-favourites-toggle-button-on-each-channel-card-users-can-mark-unmark-channels-as-favourites-add-a-favourites-filter-tab-at-the-top-of-the-channel-browser-to-show-only-favourited-channels-favourites-are-persisted-via-the-backend",
-      "featureTitle": "Add a Favourites toggle button on each channel card. Users can mark/unmark channels as favourites. Add a 'Favourites' filter tab at the top of the channel browser to show only favourited channels. Favourites are persisted via the backend.",
-      "files": [
-        "frontend/src/components/ChannelCard.tsx",
-        "frontend/src/components/FilterControls.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-6"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-apply-a-dark-cinematic-visual-theme-across-the-entire-app-deep-dark-backgrounds-0d0d0d-to-1a1a2e-vivid-accent-colours-in-red-amber-for-highlights-and-active-states-bold-sans-serif-typography-glowing-card-hover-effects-and-a-sleek-top-navigation-bar-with-the-app-logo-and-filter-tabs-ensure-the-theme-is-consistent-across-the-channel-grid-player-and-filter-controls",
-      "featureTitle": "Apply a dark, cinematic visual theme across the entire app: deep dark backgrounds (#0d0d0d to #1a1a2e), vivid accent colours in red/amber for highlights and active states, bold sans-serif typography, glowing card hover effects, and a sleek top navigation bar with the app logo and filter tabs. Ensure the theme is consistent across the channel grid, player, and filter controls.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/ChannelCard.tsx",
         "frontend/src/components/Navigation.tsx",
-        "frontend/src/index.css",
-        "frontend/tailwind.config.js"
+        "frontend/src/pages/ChannelBrowser.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -100,27 +17,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-7"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-generate-and-use-a-custom-app-logo-image-for-the-top-navigation-bar-and-a-default-channel-placeholder-thumbnail-for-channels-without-a-logo",
-      "featureTitle": "Generate and use a custom app logo image for the top navigation bar and a default channel placeholder thumbnail for channels without a logo.",
-      "files": [
-        "frontend/src/components/ChannelCard.tsx",
-        "frontend/src/components/Navigation.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-8"
+        "REQ-17"
       ],
       "confidence": "high"
     }

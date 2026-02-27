@@ -1,226 +1,37 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-27T18:01:51.832Z",
+  "generatedAt": "2026-02-27T18:50:53.913Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 8,
-    "implemented": 6,
+    "total": 1,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-1",
-        "summary": "Create a backend actor that stores IPTV channel data including name, stream URL, language, country, and a logo/thumbnail URL. Provide CRUD operations: add channel, get all channels, update channel, delete channel. Pre-populate with a set of sample IPTV channels across diverse languages and countries.",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-2",
-        "summary": "Create a backend mechanism to persist per-user favourite channel IDs. Expose addFavourite, removeFavourite, and getFavourites functions keyed by caller principal.",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-3",
-        "summary": "Build a main channel browser page that displays all IPTV channels in a grid layout. Each channel card shows the channel logo, name, language, and country. Clicking a card opens the stream player.",
+        "id": "REQ-17",
+        "summary": "Add a dedicated 'Favourites' section/page view in the channel browser that displays only the channels the user has marked as favourites. For M3U/guest users, show channels whose IDs are stored in useLocalFavourites. For authenticated users, show channels from the backend getFavourites list. The section must be accessible via the existing 'Favourites' filter tab in the Navigation bar and must compose with all active filters (search, language, country) so that favourite channels can be further narrowed down.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/hooks/useChannels.ts",
-          "frontend/src/components/ChannelCard.tsx",
-          "frontend/src/components/ChannelGrid.tsx",
-          "frontend/src/pages/ChannelBrowser.tsx"
+          "frontend/src/pages/ChannelBrowser.tsx",
+          "frontend/src/components/Navigation.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/ChannelCard.tsx",
-          "frontend/src/components/ChannelGrid.tsx",
-          "frontend/src/pages/ChannelBrowser.tsx"
-        ]
-      },
-      {
-        "id": "REQ-4",
-        "summary": "Implement an inline HLS/M3U8-compatible video player (using hls.js) that plays the selected channel's IPTV stream URL directly in the browser. Display the channel name and country as an overlay while playing.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/VideoPlayer.tsx",
-          "frontend/package.json"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/VideoPlayer.tsx"
-        ]
-      },
-      {
-        "id": "REQ-5",
-        "summary": "Add filter controls above the channel grid to filter channels by language and by country. Populate the filter dropdowns dynamically from the available channel data. Filters can be combined (e.g., language=Spanish AND country=Mexico).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/hooks/useChannelFilters.ts",
-          "frontend/src/components/FilterControls.tsx",
-          "frontend/src/pages/ChannelBrowser.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/FilterControls.tsx",
-          "frontend/src/pages/ChannelBrowser.tsx"
-        ]
-      },
-      {
-        "id": "REQ-6",
-        "summary": "Add a Favourites toggle button on each channel card. Users can mark/unmark channels as favourites. Add a 'Favourites' filter tab at the top of the channel browser to show only favourited channels. Favourites are persisted via the backend.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/hooks/useFavourites.ts",
-          "frontend/src/components/ChannelCard.tsx",
-          "frontend/src/components/FilterControls.tsx",
-          "frontend/src/hooks/useChannelFilters.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/ChannelCard.tsx",
-          "frontend/src/components/FilterControls.tsx"
-        ]
-      },
-      {
-        "id": "REQ-7",
-        "summary": "Apply a dark, cinematic visual theme across the entire app: deep dark backgrounds (#0d0d0d to #1a1a2e), vivid accent colours in red/amber for highlights and active states, bold sans-serif typography, glowing card hover effects, and a sleek top navigation bar with the app logo and filter tabs. Ensure the theme is consistent across the channel grid, player, and filter controls.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/tailwind.config.js",
-          "frontend/src/components/Navigation.tsx",
-          "frontend/src/components/ChannelCard.tsx",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/index.css",
-          "frontend/tailwind.config.js",
-          "frontend/src/components/Navigation.tsx",
-          "frontend/src/components/ChannelCard.tsx",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-8",
-        "summary": "Generate and use a custom app logo image for the top navigation bar and a default channel placeholder thumbnail for channels without a logo.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/Navigation.tsx",
-          "frontend/src/components/ChannelCard.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/Navigation.tsx",
-          "frontend/src/components/ChannelCard.tsx"
+          "frontend/src/pages/ChannelBrowser.tsx",
+          "frontend/src/components/Navigation.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/authorization/MixinAuthorization.mo",
-    "backend/authorization/access-control.mo",
-    "backend/main.mo",
     "build-request.json",
-    "build-template/Dockerfile",
-    "build-template/LICENSE",
-    "build-template/README.md",
-    "build-template/deploy.sh",
-    "build-template/icp.yaml",
-    "build-template/package.json",
-    "build-template/pnpm-lock.yaml",
-    "build-template/pnpm-workspace.yaml",
-    "build-template/scripts/prune-unused-images.js",
-    "build-template/scripts/resize-images.js",
-    "build-template/src/backend/canister.yaml",
-    "build-template/src/backend/system-idl/aaaaa-aa.did",
-    "build-template/src/frontend/canister.yaml",
-    "build-template/src/frontend/components.json",
-    "build-template/src/frontend/env.json",
-    "build-template/src/frontend/eslint-rules/no-bigint-in-query-keys.js",
-    "build-template/src/frontend/eslint-rules/require-internet-identity-provider.js",
-    "build-template/src/frontend/eslint.config.js",
-    "build-template/src/frontend/package.json",
-    "build-template/src/frontend/postcss.config.js",
-    "build-template/src/frontend/src/components/ui/accordion.tsx",
-    "build-template/src/frontend/src/components/ui/alert-dialog.tsx",
-    "build-template/src/frontend/src/components/ui/alert.tsx",
-    "build-template/src/frontend/src/components/ui/aspect-ratio.tsx",
-    "build-template/src/frontend/src/components/ui/avatar.tsx",
-    "build-template/src/frontend/src/components/ui/badge.tsx",
-    "build-template/src/frontend/src/components/ui/breadcrumb.tsx",
-    "build-template/src/frontend/src/components/ui/button.tsx",
-    "build-template/src/frontend/src/components/ui/calendar.tsx",
-    "build-template/src/frontend/src/components/ui/card.tsx",
-    "build-template/src/frontend/src/components/ui/carousel.tsx",
-    "build-template/src/frontend/src/components/ui/chart.tsx",
-    "build-template/src/frontend/src/components/ui/checkbox.tsx",
-    "build-template/src/frontend/src/components/ui/collapsible.tsx",
-    "build-template/src/frontend/src/components/ui/command.tsx",
-    "build-template/src/frontend/src/components/ui/context-menu.tsx",
-    "build-template/src/frontend/src/components/ui/dialog.tsx",
-    "build-template/src/frontend/src/components/ui/drawer.tsx",
-    "build-template/src/frontend/src/components/ui/dropdown-menu.tsx",
-    "build-template/src/frontend/src/components/ui/form.tsx",
-    "build-template/src/frontend/src/components/ui/hover-card.tsx",
-    "build-template/src/frontend/src/components/ui/input-otp.tsx",
-    "build-template/src/frontend/src/components/ui/input.tsx",
-    "build-template/src/frontend/src/components/ui/label.tsx",
-    "build-template/src/frontend/src/components/ui/menubar.tsx",
-    "build-template/src/frontend/src/components/ui/navigation-menu.tsx",
-    "build-template/src/frontend/src/components/ui/pagination.tsx",
-    "build-template/src/frontend/src/components/ui/popover.tsx",
-    "build-template/src/frontend/src/components/ui/progress.tsx",
-    "build-template/src/frontend/src/components/ui/radio-group.tsx",
-    "build-template/src/frontend/src/components/ui/resizable.tsx",
-    "build-template/src/frontend/src/components/ui/scroll-area.tsx",
-    "build-template/src/frontend/src/components/ui/select.tsx",
-    "build-template/src/frontend/src/components/ui/separator.tsx",
-    "build-template/src/frontend/src/components/ui/sheet.tsx",
-    "build-template/src/frontend/src/components/ui/sidebar.tsx",
-    "build-template/src/frontend/src/components/ui/skeleton.tsx",
-    "build-template/src/frontend/src/components/ui/slider.tsx",
-    "build-template/src/frontend/src/components/ui/sonner.tsx",
-    "build-template/src/frontend/src/components/ui/switch.tsx",
-    "build-template/src/frontend/src/components/ui/table.tsx",
-    "build-template/src/frontend/src/components/ui/tabs.tsx",
-    "build-template/src/frontend/src/components/ui/textarea.tsx",
-    "build-template/src/frontend/src/components/ui/toggle-group.tsx",
-    "build-template/src/frontend/src/components/ui/toggle.tsx",
-    "build-template/src/frontend/src/components/ui/tooltip.tsx",
-    "build-template/src/frontend/src/hooks/use-mobile.tsx",
-    "build-template/src/frontend/src/lib/utils.ts",
-    "build-template/src/frontend/tsconfig.json",
-    "build-template/src/frontend/vite.config.js",
-    "build-template/tsconfig.json",
-    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.css",
-    "frontend/index.html",
-    "frontend/public/assets/generated/channel-placeholder.dim_320x180.png",
-    "frontend/public/assets/generated/streamvault-logo.dim_200x60.png",
-    "frontend/src/App.tsx",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
-    "frontend/src/components/ChannelCard.tsx",
-    "frontend/src/components/ChannelGrid.tsx",
-    "frontend/src/components/FilterControls.tsx",
     "frontend/src/components/Navigation.tsx",
-    "frontend/src/components/ProfileSetupModal.tsx",
-    "frontend/src/components/VideoPlayer.tsx",
-    "frontend/src/config.ts",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/index.css",
-    "frontend/src/main.tsx",
     "frontend/src/pages/ChannelBrowser.tsx",
-    "frontend/src/ui-summary.json",
-    "frontend/src/utils/StorageClient.ts",
-    "frontend/src/utils/urlParams.ts",
-    "frontend/tailwind.config.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
