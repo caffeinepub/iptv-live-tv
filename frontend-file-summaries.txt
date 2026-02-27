@@ -1,0 +1,14 @@
+{
+  "frontend/index.html": "HTML entry point with updated title, Google Fonts (Inter + Barlow Condensed), and hls.js CDN script for HLS stream playback.",
+  "frontend/src/index.css": "Dark cinematic OKLCH design system with deep navy backgrounds, vivid red primary accent, amber secondary accent, custom card glow utilities, and scrollbar styling.",
+  "frontend/tailwind.config.js": "Extended Tailwind config with Inter/Barlow Condensed fonts, dark cinematic color palette, glow box shadows, and pulse-red animation keyframes.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for fetching channels, favourites, user profile, and mutations for toggling favourites and saving profiles.",
+  "frontend/src/App.tsx": "Root app component that renders the ChannelBrowser page.",
+  "frontend/src/components/Navigation.tsx": "Sticky top navigation bar with StreamVault logo, All Channels/Favourites filter tabs, and sign-in/sign-out authentication controls.",
+  "frontend/src/components/VideoPlayer.tsx": "HLS-compatible video player using hls.js CDN global, with the ERROR event callback fixed to use `(...args: unknown[]) => void` signature and cast `args[1]` to `HlsErrorData` internally to satisfy TypeScript's strict type checking.",
+  "frontend/src/components/ChannelCard.tsx": "Channel card with thumbnail, live badge, favourite heart toggle, channel name, language and country badges, hover glow effect, and selected state indicator.",
+  "frontend/src/components/FilterControls.tsx": "Filter bar with language and country Select dropdowns, clear filters button, and channel count display.",
+  "frontend/src/components/ChannelGrid.tsx": "Responsive channel grid with skeleton loading states and empty state illustration.",
+  "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog for first-time login users to set their display name before accessing the app.",
+  "frontend/src/pages/ChannelBrowser.tsx": "Main page orchestrating the video player, filter controls, channel grid, and profile setup modal with full filter state management."
+}

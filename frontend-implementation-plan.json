@@ -1,0 +1,179 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "IPTV Live TV App with Language, Country, and Favourites Filtering",
+  "requirements": [
+    {
+      "id": "REQ-3",
+      "summary": "Build main channel browser page with grid layout displaying IPTV channels",
+      "acceptanceCriteria": [
+        "Channel grid renders all channels fetched from the backend",
+        "Each card shows logo, name, language, and country",
+        "Clicking a channel card triggers the video player to load that channel's stream URL"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useChannels.ts",
+          "operation": "create",
+          "description": "Create React Query hook to fetch all channels from backend using getChannels(). Returns channel list with loading and error states."
+        },
+        {
+          "path": "frontend/src/components/ChannelCard.tsx",
+          "operation": "create",
+          "description": "Create channel card component displaying channel logo (or placeholder from frontend/public/assets/generated/channel-placeholder.dim_320x180.png if thumbnailUrl is empty), name, language, and country. Include click handler prop to open player. Apply dark theme with hover glow effect using vivid red/amber accents."
+        },
+        {
+          "path": "frontend/src/components/ChannelGrid.tsx",
+          "operation": "create",
+          "description": "Create responsive grid container component that maps filtered channel list to ChannelCard components. Apply dark background styling consistent with cinematic theme."
+        },
+        {
+          "path": "frontend/src/pages/ChannelBrowser.tsx",
+          "operation": "create",
+          "description": "Create main channel browser page component that integrates ChannelGrid, filter controls, and player. Fetch channels using useChannels hook. Manage selected channel state for player. Apply dark cinematic theme with deep backgrounds (#0d0d0d to #1a1a2e)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement inline HLS/M3U8-compatible video player with channel overlay",
+      "acceptanceCriteria": [
+        "Selected channel stream plays in an embedded video player",
+        "Player supports HLS streams via hls.js",
+        "Channel name and country are displayed as an overlay on the player",
+        "Player has standard controls (play/pause, volume, fullscreen)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/VideoPlayer.tsx",
+          "operation": "create",
+          "description": "Create video player component using hls.js for HLS stream playback. Accept streamUrl, channelName, and country as props. Display channel name and country as an overlay on the player. Include standard HTML5 video controls. Apply dark theme styling for player container and overlay text with vivid accent colors."
+        },
+        {
+          "path": "frontend/package.json",
+          "operation": "modify",
+          "description": "Add hls.js dependency for HLS stream support."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Add filter controls for language and country with dynamic options",
+      "acceptanceCriteria": [
+        "Language dropdown lists all unique languages present in the channel list",
+        "Country dropdown lists all unique countries present in the channel list",
+        "Selecting a language filters the grid to show only matching channels",
+        "Selecting a country filters the grid to show only matching channels",
+        "Both filters can be active simultaneously"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useChannelFilters.ts",
+          "operation": "create",
+          "description": "Create custom hook that manages filter state (language, country, favouritesOnly) and computes unique language/country options from channel list. Returns filtered channels based on active filters, allowing combined filters."
+        },
+        {
+          "path": "frontend/src/components/FilterControls.tsx",
+          "operation": "create",
+          "description": "Create filter controls component with language and country dropdown selects. Populate options dynamically from unique values in channel data. Apply dark cinematic theme with vivid red/amber accent colors for active states. Use bold sans-serif typography."
+        },
+        {
+          "path": "frontend/src/pages/ChannelBrowser.tsx",
+          "operation": "modify",
+          "description": "Integrate FilterControls component and useChannelFilters hook. Pass filtered channel list to ChannelGrid. Wire filter state changes to update displayed channels."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add favourites toggle on channel cards and favourites filter tab with backend persistence",
+      "acceptanceCriteria": [
+        "Each channel card has a heart/star icon that toggles the favourite state",
+        "Toggling favourite calls toggleFavourite on the backend",
+        "A 'Favourites' filter tab/button is present in the navigation area",
+        "Activating Favourites filter shows only the user's favourited channels",
+        "Favourite state is loaded from the backend on page load"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useFavourites.ts",
+          "operation": "create",
+          "description": "Create React Query hook to fetch user's favourited channels using getFavourites(). Create mutation hook for toggleFavourite(channelId) that updates backend and invalidates query cache. Use the authorization component to ensure user is authenticated before calling backend."
+        },
+        {
+          "path": "frontend/src/components/ChannelCard.tsx",
+          "operation": "modify",
+          "description": "Add favourite toggle button (heart/star icon) to channel card. Connect to useFavourites mutation hook. Show filled icon for favourited channels, outline for non-favourited. Use vivid red/amber accent color for active favourite state. Disable toggle when mutation is pending."
+        },
+        {
+          "path": "frontend/src/components/FilterControls.tsx",
+          "operation": "modify",
+          "description": "Add Favourites filter tab/button to FilterControls. Apply vivid accent styling for active Favourites filter state. Connect to filter state from useChannelFilters hook."
+        },
+        {
+          "path": "frontend/src/hooks/useChannelFilters.ts",
+          "operation": "modify",
+          "description": "Add favouritesOnly filter state. When active, filter channel list to show only channels whose IDs are in the user's favourites list. Combine with language/country filters."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Apply dark cinematic visual theme across the entire app",
+      "acceptanceCriteria": [
+        "App uses a dark background throughout with no white/light backgrounds",
+        "Active filters and favourite icons use a vivid accent colour (red or amber)",
+        "Channel cards have a subtle glow or lift effect on hover",
+        "Typography is bold and legible on dark backgrounds",
+        "Top navigation bar is present with app branding and primary filter tabs"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define dark cinematic theme using deep dark backgrounds (#0d0d0d to #1a1a2e). Set vivid red/amber accent colors for highlights and active states. Configure bold sans-serif typography for headings and body text. Add CSS custom properties for theme colors and ensure legible text on dark backgrounds."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme with dark cinematic color palette: deep dark backgrounds, vivid red/amber accents. Configure hover glow effects for cards. Set default dark mode and bold font weights."
+        },
+        {
+          "path": "frontend/src/components/Navigation.tsx",
+          "operation": "create",
+          "description": "Create top navigation bar component with app logo (from frontend/public/assets/generated/streamvault-logo.dim_200x60.png) and primary navigation links. Apply dark background with sleek styling. Include space for filter tabs/buttons. Use bold typography and vivid accent colors for active states."
+        },
+        {
+          "path": "frontend/src/components/ChannelCard.tsx",
+          "operation": "modify",
+          "description": "Apply subtle glow or lift hover effect to channel cards using Tailwind classes or CSS transitions. Ensure card styling uses dark background with vivid accent border/shadow on hover."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire Navigation component into App layout. Ensure Navigation is rendered at the top of the application. Structure App to include Navigation and ChannelBrowser page."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Use generated app logo and channel placeholder thumbnail images",
+      "acceptanceCriteria": [
+        "App logo appears in the top navigation bar",
+        "Channels without a logo URL display the placeholder thumbnail image"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Navigation.tsx",
+          "operation": "modify",
+          "description": "Reference the generated app logo image at frontend/public/assets/generated/streamvault-logo.dim_200x60.png in the Navigation component. Use as static asset in img tag or background."
+        },
+        {
+          "path": "frontend/src/components/ChannelCard.tsx",
+          "operation": "modify",
+          "description": "When rendering channel logo, check if channel.thumbnailUrl is empty or null. If so, display the placeholder image from frontend/public/assets/generated/channel-placeholder.dim_320x180.png. Otherwise display the channel's thumbnailUrl."
+        }
+      ]
+    }
+  ]
+}

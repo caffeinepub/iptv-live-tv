@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "IPTV live TV app that plays streams via IPTV links, with sorting/filtering by language, country, and favourites.",
+  "architectural_notes": [
+    "App is an IPTV client — streams are loaded from user-provided or bundled M3U/IPTV URLs",
+    "Channel metadata (language, country, name) parsed from M3U playlist entries"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimalist TV antenna with a glowing signal wave icon in red and amber on a dark background, app logo style (streamvault-logo.dim_200x60.png)\n- Dark grey television screen with a subtle static noise texture and a red play button in the centre, used as a channel thumbnail placeholder (channel-placeholder.dim_320x180.png)",
+  "existing_features": [
+    {
+      "id": "feature-build-a-main-channel-browser-page-that-displays-all-iptv-channels-in-a-grid-layout-each-channel-card-shows-the-channel-logo-name-language-and-country-clicking-a-card-opens-the-stream-player",
+      "title": "Build a main channel browser page that displays all IPTV channels in a grid layout. Each channel card shows the channel logo, name, language, and country. Clicking a card opens the stream player.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-inline-hls-m3u8-compatible-video-player-using-hls-js-that-plays-the-selected-channel-s-iptv-stream-url-directly-in-the-browser-display-the-channel-name-and-country-as-an-overlay-while-playing",
+      "title": "Implement an inline HLS/M3U8-compatible video player (using hls.js) that plays the selected channel's IPTV stream URL directly in the browser. Display the channel name and country as an overlay while playing.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-filter-controls-above-the-channel-grid-to-filter-channels-by-language-and-by-country-populate-the-filter-dropdowns-dynamically-from-the-available-channel-data-filters-can-be-combined-e-g-language-spanish-and-country-mexico",
+      "title": "Add filter controls above the channel grid to filter channels by language and by country. Populate the filter dropdowns dynamically from the available channel data. Filters can be combined (e.g., language=Spanish AND country=Mexico).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-favourites-toggle-button-on-each-channel-card-users-can-mark-unmark-channels-as-favourites-add-a-favourites-filter-tab-at-the-top-of-the-channel-browser-to-show-only-favourited-channels-favourites-are-persisted-via-the-backend",
+      "title": "Add a Favourites toggle button on each channel card. Users can mark/unmark channels as favourites. Add a 'Favourites' filter tab at the top of the channel browser to show only favourited channels. Favourites are persisted via the backend.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-dark-cinematic-visual-theme-across-the-entire-app-deep-dark-backgrounds-0d0d0d-to-1a1a2e-vivid-accent-colours-in-red-amber-for-highlights-and-active-states-bold-sans-serif-typography-glowing-card-hover-effects-and-a-sleek-top-navigation-bar-with-the-app-logo-and-filter-tabs-ensure-the-theme-is-consistent-across-the-channel-grid-player-and-filter-controls",
+      "title": "Apply a dark, cinematic visual theme across the entire app: deep dark backgrounds (#0d0d0d to #1a1a2e), vivid accent colours in red/amber for highlights and active states, bold sans-serif typography, glowing card hover effects, and a sleek top navigation bar with the app logo and filter tabs. Ensure the theme is consistent across the channel grid, player, and filter controls.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-and-use-a-custom-app-logo-image-for-the-top-navigation-bar-and-a-default-channel-placeholder-thumbnail-for-channels-without-a-logo",
+      "title": "Generate and use a custom app logo image for the top navigation bar and a default channel placeholder thumbnail for channels without a logo.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Play live TV streams via IPTV links",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Sort/filter channels by language",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Sort/filter channels by country",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Mark channels as favourites and filter by favourites",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Create a backend actor that stores IPTV channel data including name, stream URL, language, country, and a logo/thumbnail URL. Provide CRUD operations: add channel, get all channels, update channel, delete channel. Pre-populate with a set of sample IPTV channels across diverse languages and countries.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Create a backend mechanism to persist per-user favourite channel IDs. Expose addFavourite, removeFavourite, and getFavourites functions keyed by caller principal.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "IPTV Live TV",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
